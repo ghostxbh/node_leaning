@@ -1,7 +1,7 @@
 /**
  * @Author ghostxbh
  * @DateTime 13/02/2019 21:33
- * @Description 实现阻塞和非阻塞
+ * @Description 回调函数实现阻塞和非阻塞
  * 引用 菜鸟教程
  * Node.js 异步编程的直接体现就是回调。
  * 异步编程依托于回调来实现，但不能说使用了回调后程序就异步化了。
@@ -19,9 +19,10 @@ console.log("end");
 
 //非阻塞示例
 var fs = require('fs');
-fs.readFile('input.txt',function (err,data) {
+fs.readFile('uzykj.png','utf-8',function (err,data) {
     if (err)return console.error(err);
-    console.log(data.toString());
+    console.log(data);
+    console.log(data.length+'bytes');
 })
 console.log('end');
 
