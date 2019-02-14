@@ -10,15 +10,15 @@
  * 这样在执行代码时就没有阻塞或等待文件 I/O 操作。这就大大提高了 Node.js 的性能，可以处理大量的并发请求。
  * 回调函数一般作为函数的最后一个参数出现
  */
-
-//阻塞示例
 var fs = require('fs');
+//阻塞示例
+//同步输出
 var data = fs.readFileSync('input.txt');
 console.log(data.toString());
 console.log("end");
 
 //非阻塞示例
-var fs = require('fs');
+//异步输出
 fs.readFile('uzykj.png','utf-8',function (err,data) {
     if (err)return console.error(err);
     console.log(data);
@@ -26,7 +26,59 @@ fs.readFile('uzykj.png','utf-8',function (err,data) {
 })
 console.log('end');
 
+//异步输入
+var code = "Hello,My love is Programming!";
+fs.writeFile('output.txt',code,function (err) {
+    if (err){
+       return console.log(err);
+    }
+    console.log('OK');
+});
+//同步输入
+var te = "Hi,my friend is very joke";
+fs.writeFileSync('output.txt',te);
+
+//stat文件对象
+//stat()也有一个对应的同步函数statSync()
+fs.stat('uzykj.png',function (err,stat) {
+    if (err){
+        console.log(err);
+    }else{
+        //是否文件
+        console.log('isFile:'+ stat.isFile());
+        //是否目录
+        console.log('isDirectory:'+ stat.isDirectory());
+        if (stat.isFile()){
+            //文件大小
+            console.log('size:'+ stat.size);
+            //文件创建时间
+            console.log('birth time:'+stat.birthtime);
+            //文件修改时间
+            console.log('modified time:'+stat.mtime)
+        }
+    }
+});
+var fs = require('fs');
+var stat = fs.statSync('input.txt')
+console.info('isFile: ' + stat.isFile())
+console.info('isDirectory: ' + stat.isDirectory())
+if (stat.isFile()) {
+    console.info('size: ' + stat.size)
+    console.info('birth time: ' + stat.birthtime)
+    console.info('modified time: ' + stat.mtime)
+}
+
 /**
+ * 异步还是同步
+ *在fs模块中，提供同步方法是为了方便使用。那我们到底是应该用异步方法还是同步方法呢？
+ *由于Node环境执行的JavaScript代码是服务器端代码，
+ * 所以，绝大部分需要在服务器运行期反复执行业务逻辑的代码，必须使用异步代码，
+ * 否则，同步代码在执行时期，服务器将停止响应，因为JavaScript只有一个执行线程。
+ *服务器启动时如果需要读取配置文件，或者结束时需要写入到状态文件时，
+ * 可以使用同步代码，因为这些代码只在启动和结束时执行一次，不影响服务器正常运行时的异步执行。
+ */
+
+ /**
  * 引用网友常用词汇解释
  阻塞和非阻塞，同步和异步是node.js里经常遇到的词汇，我举个简单的例子来说明：
  我要看足球比赛，但是妈妈叫我烧水，电视机在客厅，烧水要在厨房。
