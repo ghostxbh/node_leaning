@@ -20,5 +20,3 @@ console.log(workDir);//C:\Users\ghost\WebstormProjects\node_leaning\node_chap4
 //组合完整文件路径：当前目录+pub/index.html
 var filePath = path.join(workDir,'pub','index.html');
 //C:\Users\ghost\WebstormProjects\node_leaning\node_chap4\pub\index.html
-
-module.exports=http1;
