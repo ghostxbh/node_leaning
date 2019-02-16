@@ -27,17 +27,17 @@ var server = http.createServer(function (request, response) {
     //获取文件状态
     //如果HTTP请求的是目录，则自动在此路径下依次搜索index.html和default.html，
     //若找到，就返回HTML文件的内容
-
     var defaultPage = ['default.html', 'index.html'];
 
     var pageCount = 0;
-
+    //默认的页面响应
     function getDefaultPage() {
         if (pageCount === defaultPage.length) {
             get404Page();
             return;
         }
 
+        //判断是否是成功响应页面
         var page = path.join(filepath, defaultPage[pageCount]);
         fs.stat(page, function (err, stats) {
             if (err || !stats.isFile()) {
@@ -49,6 +49,7 @@ var server = http.createServer(function (request, response) {
         })
     }
 
+    //404错误异常页面
     function get404Page() {
         //文件不存在，出错的情况
         console.log("404" + request.url);
@@ -56,6 +57,7 @@ var server = http.createServer(function (request, response) {
         response.end("404 NOT FOUND");
     }
 
+    //200响应页面
     function get200Page(filepath) {
         console.log("200" + request.url);
         //response响应200
@@ -64,6 +66,7 @@ var server = http.createServer(function (request, response) {
         fs.createReadStream(filepath).pipe(response);
     }
 
+    //fs模块控制输入输出
     fs.stat(filepath, function (err, stats) {
         if (err) {
             get404Page();
@@ -76,6 +79,7 @@ var server = http.createServer(function (request, response) {
 
 })
 
+//服务监听端口
 server.listen(8080);
 
 console.log('Server is running at http://127.0.0.1:8080/');
