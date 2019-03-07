@@ -274,8 +274,7 @@ child.stdout.pipe(process.stdout); // child.stdout是输入流，process.stdout�
 /**
  * 参考答案 : 用fork嘛，上面讲过了．原理是子程序用process.on, process.send，父程序里用child.on, child.send进行交互.
  */
-//1)
-fork - parent.js
+//1) fork - parent.js
 var cp = require('child_process');
 var child = cp.fork('./fork-child.js');
 child.on('message', function (msg) {
@@ -283,8 +282,7 @@ child.on('message', function (msg) {
 });
 child.send('我是你爸爸，送关怀来了!');
 
-//2)
-fork - child.js
+//2) fork - child.js
 process.on('message', function (msg) {
     console.log("儿子从老爸接收到的数据:", msg);
     process.send("我不要关怀，我要银民币！");

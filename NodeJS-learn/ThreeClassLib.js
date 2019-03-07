@@ -46,7 +46,8 @@ async.filter(['file1', 'file2', 'file3'], fs.exists, function (results) {
     // results now equals an array of the existing files
 });
 
-/**express项目的目录大致是什么样子的
+/**
+ express项目的目录大致是什么样子的
  参考答案: app.js, package.json, bin/www, public, routes, views.
 
  express常用函数
